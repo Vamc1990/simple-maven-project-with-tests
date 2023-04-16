@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                sh 'docker build -f /opt/simple-maven-project-with-tests/Dockerfile .'
+                sh 'sudo docker build -f /opt/simple-maven-project-with-tests/Dockerfile .'
 
             }
                 
