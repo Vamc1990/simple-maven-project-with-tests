@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                sh 'docker build -t "myapp" .'
+                sh 'docker build -t "simple-maven-project-with-tests" .'
 
             }
                 
