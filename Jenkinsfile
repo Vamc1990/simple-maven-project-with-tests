@@ -17,7 +17,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                sh 'mvn "-Dmaven.test.failure.ignore=true" clean install'
+                sh 'docker build -t "myapp" .'
 
             }
                 
