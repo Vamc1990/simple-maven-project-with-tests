@@ -1,9 +1,28 @@
-podTemplate(containers: [containerTemplate(name: 'maven', image: 'maven', command: 'sleep', args: 'infinity')]) {
-  node(POD_LABEL) {
-    checkout scm
-    container('maven') {
-      sh 'mvn -B -ntp -Dmaven.test.failure.ignore verify'
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "Mavne" and add it to the path.
+        maven "maven-3.6.3"
     }
-    junit '**/target/surefire-reports/TEST-*.xml'
-  }
+
+    stages {
+        stage('Git checkout') {
+            steps {
+                // Get some code from a GitHub repository
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/jglick/simple-maven-project-with-tests.git']])
+
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                sh 'mvn "-Dmaven.test.failure.ignore=true" clean install'
+
+            }
+                
+            }
+            
+        }
+    }
 }
